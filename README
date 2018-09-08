@@ -1,2 +1,37 @@
-This repository contains the code for downloading the audio of YouTube videos. 
+This repository contains the code for downloading the audio of YouTube videos.
 
+I coded this script to automate the process of converting YouTube videos into
+audio and downloading them. I recently spent about an hour doing that with a
+playlist that contained about 76 videos (It's the Ikimono Gakari playlist)
+Here's the link to that playlist:
+https://www.youtube.com/playlist?list=PLNgWFgYveQTFVVm_YLyyJeFyOhJlUXy5e
+
+I've mainly used camelCase for all the names in this script mainly because I
+think that it looks cool.
+
+I've tried to stay consistent with the PEP8 guidelines.
+
+1. This script is meant only for videos that are in a playlist. Also, the only
+  way to download the videos is download the html page containing the playlist.
+  Download the playlist and then place it in the same folder as the script.
+  Or change the path in the open() to the path containing the folder.
+  (Use absolute paths for safety.)
+
+2. I've used onlinevideoconverter.com to convert the video and download it.
+    If you use another service, make sure to change the link and the elements
+    passed to the webdriver.Chrome() methods.
+
+3. The file has to be downloaded because YouTube uses JS to generate the
+    markup. This means that it changes. I'm working on a work around. Also,
+    depending on the length of the downloads, the wait time till termination of
+    browser window will vary. Take care of that too. Working on making that more
+    dynamic.
+
+4. I've placed the chromewebdriver in the same directory as the project. If you
+    have it one of the variables in $PATH, then you don't need to pass the
+    executable_path argument to webdriver.Chrome().
+
+5. Finally, I really needed something like this. So, if it helps you or if you
+    can make it better, please do so.
+
+Arigatou!!

@@ -9,17 +9,15 @@ import time
 # parse page
 contentSoup = bs4.BeautifulSoup(open("Jap1 - YouTube.html"), "html.parser")
 
-# test code===================
-
 # getting the links of the videos from the playlist
-videoBox = contentSoup.find_all(
+videos = contentSoup.find_all(
             "a",
             class_= "yt-simple-endpoint style-scope ytd-playlist-video-renderer"
             )
 
-# test code===================
+# extracting the links from the videos
 links = []
-for i in videoBox:
+for i in videos:
     links.append(i.get("href"))
 
 # for link in links:
