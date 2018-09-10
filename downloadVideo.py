@@ -1,5 +1,3 @@
-# modules required: urllib3, beautifulsoup
-
 # import modules----------------
 import bs4
 from selenium import webdriver
