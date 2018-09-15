@@ -1,11 +1,15 @@
-# import modules----------------
+# import modules================================================================
 import bs4
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
-# get the links of the videos that need to be downloaded-----------------------
+import datetime
+# get the links of the videos that need to be downloaded========================
+
+# get input html file from the user
+html_file_directory = input("Enter the path to the html file: ")
 # parse page
-contentSoup = bs4.BeautifulSoup(open("Jap1 - YouTube.html"), "html.parser")
+contentSoup = bs4.BeautifulSoup(open(html_file_directory), "html.parser")
 
 # getting the links of the videos from the playlist
 videos = contentSoup.find_all(
@@ -14,17 +18,12 @@ videos = contentSoup.find_all(
             )
 
 # extracting the links from the videos
-links = []
-for i in videos:
-    links.append(i.get("href"))
+links = [i.get("href") for i in videos]
 
-# for link in links:
-#     print(link)
-
-# download the required files---------------------------------------------------
+# download the required files===================================================
 browser = webdriver.Chrome(executable_path = "./chromedriver")
 
-# function to download the file=================================================
+# function to download the file-------------------------------------------------
 def downloadVideo(url): # function to download videos
 
     # site to download audio from
@@ -45,22 +44,23 @@ def downloadVideo(url): # function to download videos
         browser.close()
         # switching focus back to original window
         browser.switch_to_window(browser.window_handles[0])
-    time.sleep(75)
+    time.sleep(90)
 
-
-# downloading videos in links
+# downloading videos in links---------------------------------------------------
 try:
     for i in range(len(links)):
-        downloadVideo(links[i])
         print("Downloaded video " + str(i + 1)) # message to indicate video download
+        downloadVideo(links[i])
 except Exception as err: # catching errors
     print("An error occured! Error Code: \n" + str(err))
     print("Closing the browser! and terminating all operations")
     try: # writing errors raised to file
         # appending to file
         with open("errors.txt", "a") as errors:
+            current_time = str(datetime.datetime.now())
             print("The following error occured while downloading video " +
-            str(i + 1) + "\n" + "Error Code: " + str(err), file = errors)
+            str(i + 1) + "\n" + "Error Code: " + str(err) + "at: " +
+            current_time, file = errors)
     except Exception as tryErr:
         print(str(tryErr))
 finally:
